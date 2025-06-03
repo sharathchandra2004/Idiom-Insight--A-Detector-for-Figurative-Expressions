@@ -5,6 +5,48 @@ from nltk.tokenize import sent_tokenize
 from fuzzywuzzy import fuzz
 
 # Download punkt tokenizer
+
+# --- Custom Streamlit Styling ---
+st.markdown("""
+    <style>
+    .main {
+        background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+    }
+    .stTextArea textarea {
+        background-color: #f7fafc !important;
+        border-radius: 10px !important;
+        border: 1.5px solid #b6c9e2 !important;
+        font-size: 1.1rem !important;
+        color: #22223b !important;
+    }
+    .stButton>button {
+        background: linear-gradient(90deg, #48c6ef 0%, #6f86d6 100%);
+        color: white;
+        border-radius: 8px;
+        border: none;
+        font-size: 1.1rem;
+        padding: 0.5em 2em;
+        margin-top: 10px;
+        transition: 0.2s;
+    }
+    .stButton>button:hover {
+        background: linear-gradient(90deg, #6f86d6 0%, #48c6ef 100%);
+        color: #fff;
+        transform: scale(1.03);
+    }
+    .stMarkdown h3 {
+        color: #2d3142;
+        margin-top: 1.5em;
+    }
+    .stMarkdown ul {
+        background: #f0f4f8;
+        border-radius: 8px;
+        padding: 1em;
+        margin-bottom: 1em;
+        box-shadow: 0 2px 8px rgba(100, 100, 150, 0.07);
+    }
+    </style>
+""", unsafe_allow_html=True)
 nltk.download('punkt')
 
 # Load idioms CSV file
