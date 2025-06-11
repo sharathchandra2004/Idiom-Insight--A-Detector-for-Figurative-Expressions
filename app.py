@@ -5,49 +5,12 @@ from nltk.tokenize import sent_tokenize
 from fuzzywuzzy import fuzz
 
 # Download punkt tokenizer for sentence splitting
-nltk.download('punkt')
 
-# --- Custom Streamlit Styling ---
-st.markdown("""
-    <style>
-    .main {
-        background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
-    }
-    .stTextArea textarea {
-        background-color: #f7fafc !important;
-        border-radius: 10px !important;
-        border: 1.5px solid #b6c9e2 !important;
-        font-size: 1.1rem !important;
-        color: #22223b !important;
-    }
-    .stButton>button {
-        background: linear-gradient(90deg, #48c6ef 0%, #6f86d6 100%);
-        color: white;
-        border-radius: 8px;
-        border: none;
-        font-size: 1.1rem;
-        padding: 0.5em 2em;
-        margin-top: 10px;
-        transition: 0.2s;
-    }
-    .stButton>button:hover {
-        background: linear-gradient(90deg, #6f86d6 0%, #48c6ef 100%);
-        color: #fff;
-        transform: scale(1.03);
-    }
-    .stMarkdown h3 {
-        color: #2d3142;
-        margin-top: 1.5em;
-    }
-    .stMarkdown ul {
-        background: #f0f4f8;
-        border-radius: 8px;
-        padding: 1em;
-        margin-bottom: 1em;
-        box-shadow: 0 2px 8px rgba(100, 100, 150, 0.07);
-    }
-    </style>
-""", unsafe_allow_html=True)
+try:
+    nltk.data.find('tokenizers/punkt')
+except LookupError:
+    nltk.download('punkt')
+
 
 # Load idioms CSV file
 try:
@@ -86,14 +49,11 @@ if st.button("Detect Idioms"):
                     })
 
         if detected_idioms:
-            st.markdown("### ✅ Detected Idioms")
+            st.subheader("✅ Detected Idioms")
             for entry in detected_idioms:
-                st.markdown(f"""
-                <div style="background-color:#1e1e1e; color:white; padding:15px; border-radius:10px; margin-bottom:10px; font-size:16px;">
-                    <b>Idiom:</b> <i>{entry['idiom']}</i><br>
-                    <b>Meaning:</b> {entry['meaning']}<br>
-                    <b>Sentence:</b> "{entry['sentence']}"
-                </div>
-                """, unsafe_allow_html=True)
+                st.markdown(f"**Idiom:** *{entry['idiom']}*")
+                st.markdown(f"**Meaning:** {entry['meaning']}")
+                st.markdown(f"**Sentence:** \"{entry['sentence']}\"")
+                st.markdown("---")
         else:
             st.info("No idioms detected.")
