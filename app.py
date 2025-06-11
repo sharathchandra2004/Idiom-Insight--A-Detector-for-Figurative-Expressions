@@ -21,7 +21,7 @@ def simple_sent_tokenize(text):
     return [s for s in sentences if s]
 
 # Streamlit UI
-st.title("🧠 Idiom Detector")
+st.title("🧠 Idiom Insight: Figurative Expression Detector")
 st.write("Enter a paragraph below. The app will detect and explain any idioms used.")
 
 # Text Input
