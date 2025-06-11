@@ -6,10 +6,9 @@ from fuzzywuzzy import fuzz
 
 # Download punkt tokenizer for sentence splitting
 
-try:
-    nltk.data.find('tokenizers/punkt')
-except LookupError:
-    nltk.download('punkt')
+import nltk
+nltk.download('punkt', download_dir='nltk_data')
+nltk.data.path.append('nltk_data')
 
 
 # Load idioms CSV file
