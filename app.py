@@ -1,15 +1,7 @@
 import streamlit as st
 import pandas as pd
-import nltk
-from nltk.tokenize import sent_tokenize
+import re
 from fuzzywuzzy import fuzz
-
-# Download punkt tokenizer for sentence splitting
-
-import nltk
-nltk.download('punkt', download_dir='nltk_data')
-nltk.data.path.append('nltk_data')
-
 
 # Load idioms CSV file
 try:
@@ -21,6 +13,12 @@ except FileNotFoundError:
 # Preprocess idioms
 df_idioms['idioms'] = df_idioms['idioms'].str.lower()
 idiom_dict = dict(zip(df_idioms['idioms'], df_idioms['meaning']))
+
+# Basic sentence tokenizer using regular expressions
+def simple_sent_tokenize(text):
+    # Split text at period, exclamation mark, or question mark
+    sentences = re.split(r'[.!?]\s+', text.strip())
+    return [s for s in sentences if s]
 
 # Streamlit UI
 st.title("🧠 Idiom Detector")
@@ -34,7 +32,7 @@ if st.button("Detect Idioms"):
     if not input_text.strip():
         st.warning("Please enter some text to analyze.")
     else:
-        sentences = sent_tokenize(input_text)
+        sentences = simple_sent_tokenize(input_text)
         detected_idioms = []
 
         for sentence in sentences:
