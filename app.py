@@ -4,7 +4,8 @@ import nltk
 from nltk.tokenize import sent_tokenize
 from fuzzywuzzy import fuzz
 
-# Download punkt tokenizer
+# Download punkt tokenizer for sentence splitting
+nltk.download('punkt')
 
 # --- Custom Streamlit Styling ---
 st.markdown("""
@@ -47,7 +48,6 @@ st.markdown("""
     }
     </style>
 """, unsafe_allow_html=True)
-nltk.download('punkt')
 
 # Load idioms CSV file
 try:
@@ -89,9 +89,11 @@ if st.button("Detect Idioms"):
             st.markdown("### ✅ Detected Idioms")
             for entry in detected_idioms:
                 st.markdown(f"""
-                - **Idiom:** *{entry['idiom']}*  
-                  **Meaning:** {entry['meaning']}  
-                  **Sentence:** "{entry['sentence']}"
-                """)
+                <div style="background-color:#1e1e1e; color:white; padding:15px; border-radius:10px; margin-bottom:10px; font-size:16px;">
+                    <b>Idiom:</b> <i>{entry['idiom']}</i><br>
+                    <b>Meaning:</b> {entry['meaning']}<br>
+                    <b>Sentence:</b> "{entry['sentence']}"
+                </div>
+                """, unsafe_allow_html=True)
         else:
             st.info("No idioms detected.")
